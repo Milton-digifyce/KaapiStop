@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>KS Series | Premium Coffee Engineering</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#191a0c",
+                        "inverse-surface": "#313030",
+                        "tertiary-container": "#2d2f1f",
+                        "primary-fixed-dim": "#dec1b3",
+                        "on-surface-variant": "#4f4540",
+                        "on-secondary-container": "#745c00",
+                        "surface-dim": "#dcd9d9",
+                        "on-primary-container": "#aa9084",
+                        "on-background": "#1c1b1b",
+                        "on-secondary-fixed-variant": "#574500",
+                        "surface-tint": "#705a4f",
+                        "on-primary-fixed": "#281810",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-error": "#ffffff",
+                        "on-tertiary-container": "#969781",
+                        "inverse-on-surface": "#f3f0ef",
+                        "tertiary-fixed-dim": "#c8c8b0",
+                        "secondary-fixed-dim": "#e9c349",
+                        "outline": "#81756f",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#fed65b",
+                        "surface-container-high": "#eae7e7",
+                        "on-surface": "#1c1b1b",
+                        "primary": "#25160e",
+                        "inverse-primary": "#dec1b3",
+                        "on-secondary-fixed": "#241a00",
+                        "surface": "#fcf9f8",
+                        "secondary": "#735c00",
+                        "error": "#ba1a1a",
+                        "primary-container": "#3c2a21",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#fbdcce",
+                        "surface-variant": "#e5e2e1",
+                        "outline-variant": "#d3c3bd",
+                        "on-primary-fixed-variant": "#574238",
+                        "surface-bright": "#fcf9f8",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#f0eded",
+                        "tertiary-fixed": "#e4e4cc",
+                        "on-tertiary-fixed-variant": "#474836",
+                        "background": "#fcf9f8",
+                        "secondary-fixed": "#ffe088",
+                        "on-tertiary-fixed": "#1b1d0e",
+                        "surface-container-low": "#f6f3f2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-max-width": "1200px",
+                        "section-gap-desktop": "80px",
+                        "base": "8px",
+                        "section-gap-mobile": "48px",
+                        "grid-gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Libre Caslon Text"],
+                        "label-caps": ["Manrope"],
+                        "display-lg-mobile": ["Libre Caslon Text"],
+                        "body-md": ["Manrope"],
+                        "headline-md": ["Libre Caslon Text"],
+                        "body-lg": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "display-lg-mobile": ["40px", { "lineHeight": "48px", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .grain-overlay {
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+            opacity: 0.03;
+            pointer-events: none;
+        }
+
+        .product-card-shadow {
+            box-shadow: 0 15px 35px rgba(60, 42, 33, 0.06);
+        }
+
+        .coffee-gradient {
+            background: linear-gradient(180deg, rgba(252, 249, 248, 1) 0%, rgba(246, 243, 242, 1) 100%);
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        @keyframes reverse-spin {
+            from { transform: rotate(360deg); }
+            to { transform: rotate(0deg); }
+        }
+
+        .animate-reverse-spin {
+            animation: reverse-spin 25s linear infinite;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: theme('colors.secondary');
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Modal specific styles */
+        body.modal-open {
+            overflow: hidden;
+            padding-right: 15px; /* Prevent layout shift from scrollbar disappearing */
+        }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden relative">
+    <nav class="fixed top-0 left-0 w-full z-50 h-20 md:h-28 flex justify-between items-center px-4 md:px-16 bg-surface/75 backdrop-blur-xl border-b border-outline-variant/20 shadow-sm transition-all duration-300">
+        <div class="font-display-lg text-headline-md tracking-tighter text-primary flex items-center">
+            <img class="h-14 md:h-36 w-auto p-2 md:p-4" src="/assets/kaapiStoplogo.png" alt="KaaPi Stop Logo">
+        </div>
+        <div class="hidden lg:flex gap-12">
+            <a class="nav-link font-label-caps text-label-caps text-on-surface hover:text-primary transition-colors duration-300" href="#machines">Machines</a>
+            <a class="nav-link font-label-caps text-label-caps text-on-surface hover:text-primary transition-colors duration-300" href="#why-ks">Services</a>
+            <a class="nav-link font-label-caps text-label-caps text-on-surface hover:text-primary transition-colors duration-300" href="#tech">Specification</a>
+        </div>
+        <a class="bg-primary text-on-primary px-4 py-2.5 md:px-8 md:py-3 font-label-caps text-[10px] md:text-xs uppercase tracking-widest hover:bg-secondary transition-all transform active:scale-95 duration-200 rounded-sm shadow-md whitespace-nowrap" href="#demo">Book a Demo</a>
+    </nav>
+
+    <main class="relative">
+        <section class="relative min-h-[90vh] flex items-center pt-24 md:pt-36 px-4 md:px-16 overflow-hidden coffee-gradient">
+            <div class="grain-overlay absolute inset-0 z-0"></div>
+            <div class="max-w-container-max-width mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 relative z-10 w-full">
+                <div class="flex flex-col justify-center space-y-6 md:space-y-8 animate-fade-in text-center lg:text-left mt-4 md:mt-0">
+                    <span class="font-label-caps text-[10px] md:text-label-caps text-secondary tracking-[0.3em] uppercase">Engineering Perfection</span>
+                    <h1 class="font-display-lg text-display-lg-mobile md:text-display-lg leading-tight text-primary">Experience the Perfect Brew at Your Fingertips</h1>
+                    <p class="font-body-lg text-sm md:text-body-lg text-on-surface-variant max-w-lg mx-auto lg:mx-0">Advanced vending solutions for modern offices and hospitality, combining precision engineering with premium sensory indulgence.</p>
+                    <div class="flex flex-col sm:flex-row gap-4 pt-2 md:pt-4 justify-center lg:justify-start">
+                        <a class="bg-primary text-on-primary px-8 py-3 md:py-4 font-label-caps text-xs md:text-label-caps uppercase tracking-widest hover:bg-secondary transition-all shadow-lg text-center rounded-sm" href="#demo">Book a Demo</a>
+                        <a class="border border-outline px-8 py-3 md:py-4 font-label-caps text-xs md:text-label-caps uppercase tracking-widest hover:border-primary hover:text-primary transition-all text-center rounded-sm bg-white/50 backdrop-blur-sm" href="#machines">Explore Models</a>
+                    </div>
+                </div>
+                <div class="relative flex items-center justify-center pt-8 lg:pt-0">
+                    <div class="absolute inset-0 bg-primary/5 rounded-full blur-3xl transform scale-125"></div>
+                    <img alt="Premium Coffee" class="relative z-10 h-auto md:h-[85%] w-[75%] md:w-full max-w-sm md:max-w-md object-contain drop-shadow-2xl hover:-translate-y-2 transition-transform duration-700" data-alt="A high-end, editorial style photograph of a professional espresso machine in a luxury corporate lounge environment." src="/assets/coffee-machine-grinder.jpg" />
+                </div>
+            </div>
+        </section>
+
+        <section id="machines" class="py-16 md:py-24 bg-surface-container-low px-4 md:px-16">
+            <div class="max-w-container-max-width mx-auto">
+                <div class="text-center mb-12 md:mb-16 fade-up">
+                    <h2 class="font-display-lg text-3xl md:text-headline-md text-primary mb-4">Precision Selection</h2>
+                    <div class="w-16 h-1 bg-secondary mx-auto"></div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-12">
+                    <div class="fade-up glass-card p-6 md:p-8 flex flex-col items-center text-center group hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 rounded-sm">
+                        <div class="mb-6 md:mb-8 overflow-hidden h-48 md:h-56 flex items-end">
+                            <img class="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-700" data-alt="A compact KS 100 model coffee machine." src="/assets/Ks100-removebg-preview.png"/>
+                        </div>
+                        <div class="bg-primary text-on-primary font-label-caps px-6 py-2 mb-4 rounded-sm text-xs md:text-sm">KS 100</div>
+                        <p class="font-body-md text-on-surface-variant mb-6 text-sm">Push button keypad with modern sleek design. Perfect for smaller executive lounges.</p>
+                        <div class="w-full space-y-4 pt-6 border-t border-outline-variant/30 flex-grow">
+                            <div class="flex justify-between items-center text-[10px] md:text-xs font-bold uppercase tracking-widest text-primary">
+                                <span>Capacity</span>
+                                <span class="bg-primary-fixed text-on-primary-fixed px-2 py-1 rounded-sm">500 Cups/Day</span>
+                            </div>
+                        </div>
+                        <a href="#demo" class="mt-6 w-full bg-surface-container-highest text-primary py-3 font-label-caps text-[10px] md:text-xs uppercase tracking-widest hover:bg-primary hover:text-on-primary transition-all duration-300 rounded-sm border border-outline-variant/50">Book for Demo</a>
+                    </div>
+                    
+                    <div class="fade-up glass-card p-6 md:p-8 flex flex-col items-center text-center group hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 delay-100 rounded-sm">
+                        <div class="mb-6 md:mb-8 overflow-hidden h-48 md:h-56 flex items-end">
+                            <img class="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-700" data-alt="The robust KS 200 coffee machine model." src="/assets/Ks200-removebg-preview.png"/>
+                        </div>
+                        <div class="bg-primary text-on-primary font-label-caps px-6 py-2 mb-4 rounded-sm text-xs md:text-sm">KS 200</div>
+                        <p class="font-body-md text-on-surface-variant mb-6 text-sm">Robust and durable design for high-traffic workspaces. Built for engineering precision.</p>
+                        <div class="w-full space-y-4 pt-6 border-t border-outline-variant/30 flex-grow">
+                            <div class="flex justify-between items-center text-[10px] md:text-xs font-bold uppercase tracking-widest text-primary">
+                                <span>Capacity</span>
+                                <span class="bg-primary-fixed text-on-primary-fixed px-2 py-1 rounded-sm">600 Cups/Day</span>
+                            </div>
+                        </div>
+                        <a href="#demo" class="mt-6 w-full bg-surface-container-highest text-primary py-3 font-label-caps text-[10px] md:text-xs uppercase tracking-widest hover:bg-primary hover:text-on-primary transition-all duration-300 rounded-sm border border-outline-variant/50">Book for Demo</a>
+                    </div>
+                    
+                    <div class="fade-up glass-card p-6 md:p-8 flex flex-col items-center text-center group hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 delay-200 rounded-sm">
+                        <div class="mb-6 md:mb-8 overflow-hidden h-48 md:h-56 flex items-end">
+                            <img class="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-700" data-alt="The elite KS 300 model coffee machine." src="/assets/Ks300-removebg-preview.png"/>
+                        </div>
+                        <div class="bg-primary text-on-primary font-label-caps px-6 py-2 mb-4 rounded-sm text-xs md:text-sm">KS 300</div>
+                        <p class="font-body-md text-on-surface-variant mb-6 text-sm">Capacitive touch interface with customizable capacity. The pinnacle of hospitality.</p>
+                        <div class="w-full space-y-4 pt-6 border-t border-outline-variant/30 flex-grow">
+                            <div class="flex justify-between items-center text-[10px] md:text-xs font-bold uppercase tracking-widest text-primary">
+                                <span>Capacity</span>
+                                <span class="bg-primary-fixed text-on-primary-fixed px-2 py-1 rounded-sm">350 Cups/Ideal</span>
+                            </div>
+                        </div>
+                        <a href="#demo" class="mt-6 w-full bg-surface-container-highest text-primary py-3 font-label-caps text-[10px] md:text-xs uppercase tracking-widest hover:bg-primary hover:text-on-primary transition-all duration-300 rounded-sm border border-outline-variant/50">Book for Demo</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="why-ks" class="relative py-16 md:py-24 bg-primary text-on-primary overflow-hidden px-4 md:px-16">
+            <div class="absolute inset-0 z-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+            <div class="max-w-container-max-width mx-auto relative z-10">
+                <div class="grid lg:grid-cols-2 gap-10 md:gap-20 items-center">
+                    <div class="space-y-8 md:space-y-10 fade-up">
+                        <h2 class="font-display-lg text-4xl md:text-display-lg text-secondary-fixed leading-tight">The Core of <br/>Consistency.</h2>
+                        <div class="grid gap-6 md:gap-8">
+                            <div class="flex gap-4 md:gap-6 items-start group">
+                                <div class="bg-secondary-fixed/10 p-3 md:p-4 rounded-full group-hover:bg-secondary-fixed/20 transition-colors">
+                                    <span class="material-symbols-outlined text-secondary-fixed" style="font-variation-settings: 'FILL' 1;">precision_manufacturing</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-headline-md text-base md:text-body-lg font-bold mb-2">Dual Boiler Logic</h4>
+                                    <p class="text-on-primary/80 text-xs md:text-sm leading-relaxed">Separated heating systems for steam and brewing ensure zero temperature fluctuation during heavy usage periods.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4 md:gap-6 items-start group">
+                                <div class="bg-secondary-fixed/10 p-3 md:p-4 rounded-full group-hover:bg-secondary-fixed/20 transition-colors">
+                                    <span class="material-symbols-outlined text-secondary-fixed" style="font-variation-settings: 'FILL' 1;">sensors</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-headline-md text-base md:text-body-lg font-bold mb-2">Smart IoT Integration</h4>
+                                    <p class="text-on-primary/80 text-xs md:text-sm leading-relaxed">Real-time monitoring of bean levels and maintenance needs through our proprietary KS Cloud dashboard.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4 md:gap-6 items-start group">
+                                <div class="bg-secondary-fixed/10 p-3 md:p-4 rounded-full group-hover:bg-secondary-fixed/20 transition-colors">
+                                    <span class="material-symbols-outlined text-secondary-fixed" style="font-variation-settings: 'FILL' 1;">eco</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-headline-md text-base md:text-body-lg font-bold mb-2">Eco-Efficiency Mode</h4>
+                                    <p class="text-on-primary/80 text-xs md:text-sm leading-relaxed">Intelligent standby patterns reduce power consumption by up to 40% during off-peak hours.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative h-[300px] md:h-[600px] flex items-center justify-center fade-up delay-200 mt-6 lg:mt-0">
+                        <div class="absolute w-[250px] md:w-[400px] h-[250px] md:h-[400px] border border-secondary-fixed/20 rounded-full animate-spin [animation-duration:35s]"></div>
+                        <div class="absolute w-[180px] md:w-[300px] h-[180px] md:h-[300px] border border-white/10 rounded-full animate-reverse-spin"></div>
+                        <img class="z-10 rounded-sm shadow-2xl transition-all duration-700 cursor-pointer w-[70%] md:w-[80%] max-w-full object-cover" data-alt="An artistic close-up photograph showcasing the intricate internal components and brewing chamber of a KS Series coffee machine." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEm7z8aCNFRHcnUfXdL3ifG6PxMTL1tggeGXF5II-OPALLXwJfarpzN7nZckYs8ffT881xOSzkupKVST6a-yALx2C47C_bmKLiCnMrgtQbfrJRp2Iw_cMWuU68pSdVLf0uHYGNzTMpkH9o0u-fvThnCKntmVmumCrdrUk7T_FArMCWdpPEB74tPkVEVC3M2oX_rIbKtX5Fc6RrNba-yfjuGRxMkDpjjjNSGKzkgI5OaGE9jys9gzViHe14MDzHGxwvRTF8HoJ94vsT"/>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 md:py-24 px-4 md:px-16 bg-surface" id="tech">
+            <div class="max-w-container-max-width mx-auto">
+                <div class="text-center mb-10 md:mb-12 fade-up">
+                    <h2 class="font-display-lg text-3xl md:text-display-lg text-primary mb-4">Technical Excellence</h2>
+                    <p class="font-body-lg text-sm md:text-base text-on-surface-variant">Side-by-side comparison of the KS Series specifications.</p>
+                </div>
+                <div class="overflow-x-auto rounded-sm border border-outline-variant/30 shadow-sm fade-up">
+                    <table class="w-full text-left border-collapse min-w-[600px]">
+                        <thead>
+                            <tr class="bg-primary text-on-primary">
+                                <th class="p-4 md:p-6 font-label-caps text-[10px] md:text-xs uppercase tracking-widest border-r border-on-primary/10">Feature</th>
+                                <th class="p-4 md:p-6 font-label-caps text-[10px] md:text-xs uppercase tracking-widest border-r border-on-primary/10">KS 100</th>
+                                <th class="p-4 md:p-6 font-label-caps text-[10px] md:text-xs uppercase tracking-widest border-r border-on-primary/10">KS 200</th>
+                                <th class="p-4 md:p-6 font-label-caps text-[10px] md:text-xs uppercase tracking-widest">KS 300</th>
+                            </tr>
+                        </thead>
+                        <tbody class="font-body-md text-on-surface text-xs md:text-sm">
+                            <tr class="border-b border-outline-variant/30 hover:bg-surface-container-low transition-colors">
+                                <td class="p-4 md:p-6 font-bold">Interface</td>
+                                <td class="p-4 md:p-6">Push Button Keypad</td>
+                                <td class="p-4 md:p-6">Push Button Keypad</td>
+                                <td class="p-4 md:p-6">Capacitive Touch</td>
+                            </tr>
+                            <tr class="border-b border-outline-variant/30 hover:bg-surface-container-low transition-colors">
+                                <td class="p-4 md:p-6 font-bold">Water Capacity</td>
+                                <td class="p-4 md:p-6">8 Liters</td>
+                                <td class="p-4 md:p-6">14 Liters</td>
+                                <td class="p-4 md:p-6">Customizable</td>
+                            </tr>
+                            <tr class="border-b border-outline-variant/30 hover:bg-surface-container-low transition-colors">
+                                <td class="p-4 md:p-6 font-bold">Milk Boiler</td>
+                                <td class="p-4 md:p-6">6 Liters</td>
+                                <td class="p-4 md:p-6">8 Liters</td>
+                                <td class="p-4 md:p-6">Customizable</td>
+                            </tr>
+                            <tr class="border-b border-outline-variant/30 hover:bg-surface-container-low transition-colors">
+                                <td class="p-4 md:p-6 font-bold">Dispensing Rate</td>
+                                <td class="p-4 md:p-6">7-8 Cups / Min</td>
+                                <td class="p-4 md:p-6">7-8 Cups / Min</td>
+                                <td class="p-4 md:p-6">2 Cups / Min (Quality)</td>
+                            </tr>
+                            <tr class="hover:bg-surface-container-low transition-colors">
+                                <td class="p-4 md:p-6 font-bold">Daily Capacity</td>
+                                <td class="p-4 md:p-6">500 Cups</td>
+                                <td class="p-4 md:p-6">600 Cups</td>
+                                <td class="p-4 md:p-6">350 Cups (Ideal)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 md:py-24 px-4 md:px-16 bg-surface-container-low relative overflow-hidden" id="demo">
+            <div class="max-w-[800px] mx-auto bg-white p-6 md:p-14 product-card-shadow relative z-10 rounded-sm border border-outline-variant/20 fade-up">
+                <div class="text-center mb-8 md:mb-10 space-y-3 md:space-y-4">
+                    <h2 class="font-display-lg text-3xl md:text-headline-md text-primary">Schedule Your Experience</h2>
+                    <p class="font-body-md text-on-surface-variant text-xs md:text-sm">Complete the form below to book a personalized demo in our showroom or your office.</p>
+                </div>
+                
+                <form class="space-y-6 md:space-y-8 ks-demo-form">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                        <div class="relative group">
+                            <input name="fullName" class="peer w-full border-0 border-b border-outline-variant py-2 md:py-3 bg-transparent focus:ring-0 focus:border-secondary transition-colors text-sm" placeholder=" " required="" type="text" />
+                            <label class="absolute left-0 -top-4 text-on-surface-variant font-label-caps text-[10px] transition-all peer-placeholder-shown:text-xs peer-placeholder-shown:top-2 md:peer-placeholder-shown:top-3 peer-focus:-top-4 peer-focus:text-secondary peer-focus:text-[10px]">Full Name</label>
+                        </div>
+                        <div class="relative group">
+                            <input name="companyName" class="peer w-full border-0 border-b border-outline-variant py-2 md:py-3 bg-transparent focus:ring-0 focus:border-secondary transition-colors text-sm" placeholder=" " required="" type="text" />
+                            <label class="absolute left-0 -top-4 text-on-surface-variant font-label-caps text-[10px] transition-all peer-placeholder-shown:text-xs peer-placeholder-shown:top-2 md:peer-placeholder-shown:top-3 peer-focus:-top-4 peer-focus:text-secondary peer-focus:text-[10px]">Company Name</label>
+                        </div>
+                    </div>
+                    <div class="relative group">
+                        <input name="businessEmail" class="peer w-full border-0 border-b border-outline-variant py-2 md:py-3 bg-transparent focus:ring-0 focus:border-secondary transition-colors text-sm" placeholder=" " required="" type="email" />
+                        <label class="absolute left-0 -top-4 text-on-surface-variant font-label-caps text-[10px] transition-all peer-placeholder-shown:text-xs peer-placeholder-shown:top-2 md:peer-placeholder-shown:top-3 peer-focus:-top-4 peer-focus:text-secondary peer-focus:text-[10px]">Business Email</label>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="font-label-caps text-[10px] md:text-xs text-on-surface-variant">Machine Interest</label>
+                        <select name="machineInterest" class="w-full border-0 border-b border-outline-variant py-2 md:py-3 bg-transparent focus:ring-0 focus:border-secondary transition-colors appearance-none font-body-md text-xs md:text-sm">
+                            <option>KS 100 - Sleek Enterprise</option>
+                            <option>KS 200 - Robust Office</option>
+                            <option>KS 300 - Luxury Hospitality</option>
+                            <option>Full Comparison Consultation</option>
+                        </select>
+                    </div>
+                    <button class="w-full bg-primary text-on-primary py-4 md:py-5 font-label-caps text-[10px] md:text-xs uppercase tracking-[0.2em] hover:bg-secondary transition-all shadow-md active:scale-[0.98] rounded-sm mt-2 md:mt-4" type="submit">Request Demonstration</button>
+                </form>
+
+            </div>
+            <div class="absolute top-1/2 left-0 w-48 md:w-64 h-48 md:h-64 bg-secondary/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+            <div class="absolute bottom-0 right-0 w-64 md:w-96 h-64 md:h-96 bg-primary/5 rounded-full blur-3xl translate-x-1/3 translate-y-1/3"></div>
+        </section>
+    </main>
+
+    <footer class="bg-primary text-on-primary pt-20 pb-10 px-6 md:px-16">
+    <div class="max-w-container-max-width mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+            
+            <div class="space-y-6">
+                <img src="/assets/kaapiStoplogo.png" alt="Kaapi Stop Logo" class="h-44 w-auto object-contain brightness-0 invert">
+                <p class="font-body-md text-on-primary/70 max-w-xs text-sm leading-relaxed">
+                    Bringing you the finest coffee experience. A proud brand of Naval Foods & Beverages LLP.
+                </p>
+            </div>
+
+            <div class="space-y-6">
+                <h4 class="font-label-caps text-label-caps text-secondary-fixed">Our Outlets</h4>
+                <div class="space-y-6">
+                    <div>
+                        <h5 class="font-bold text-on-primary text-sm mb-2">Salem</h5>
+                        <ul class="space-y-2 font-body-md text-on-primary/70 text-sm">
+                            <li>Yercaud</li>
+                            <li>Yercaud Adivaram</li>
+                            <li>Five Roads</li>
+                            <li>Shevapet</li>
+                            <li>VIMS</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 class="font-bold text-on-primary text-sm mb-2">Salem - Bangalore Highway</h5>
+                        <ul class="space-y-2 font-body-md text-on-primary/70 text-sm">
+                            <li>Kaveripattinam</li>
+                            <li>Thoppur</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6 lg:pt-10">
+                <div class="space-y-6">
+                    <div>
+                        <h5 class="font-bold text-on-primary text-sm mb-2">Coimbatore</h5>
+                        <ul class="space-y-2 font-body-md text-on-primary/70 text-sm">
+                            <li>KMCH</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 class="font-bold text-on-primary text-sm mb-2">Hosur</h5>
+                        <ul class="space-y-2 font-body-md text-on-primary/70 text-sm">
+                            <li>Gunam Hospital</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 class="font-bold text-on-primary text-sm mb-2">Darmapuri</h5>
+                        <ul class="space-y-2 font-body-md text-on-primary/70 text-sm">
+                            <li>EmDen Mess</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <h4 class="font-label-caps text-label-caps text-secondary-fixed">Contact Us</h4>
+                
+                <div class="space-y-5 font-body-md text-on-primary/70 text-sm">
+                    <div>
+                        <strong class="text-on-primary block mb-1">NAVAL FOODS & BEVERAGES LLP</strong>
+                        <p class="leading-relaxed">
+                            No: 43-45, Sidco Industrial Estate,<br>
+                            Five roads, Narasothipatti,<br>
+                            Salem, Tamil Nadu - 636 004
+                        </p>
+                    </div>
+                    
+                    <div class="pt-4 border-t border-on-primary/20">
+                        <strong class="text-on-primary block mb-3">Vending Division Manager</strong>
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-base">mail</span>
+                                <a href="mailto:b2bsales@kaapistop.com" class="hover:text-secondary-fixed transition-colors">b2bsales@kaapistop.com</a>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-base">call</span>
+                                <a href="tel:+918925711299" class="hover:text-secondary-fixed transition-colors">89257 11299</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pt-8 border-t border-on-primary/10 flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
+            <p class="font-body-md text-xs text-on-primary/50">© 2024 Naval Foods & Beverages LLP. All rights reserved.</p>
+            <div class="flex flex-wrap justify-center gap-6 font-label-caps text-[10px] uppercase tracking-widest text-on-primary/50">
+                <a class="hover:text-on-primary transition-colors" href="#">LinkedIn</a>
+                <a class="hover:text-on-primary transition-colors" href="#">Instagram</a>
+                <a class="hover:text-on-primary transition-colors" href="#">Facebook</a>
+            </div>
+        </div>
+    </div>
+    </footer>
+
+    <div id="demo-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6 opacity-0 transition-opacity duration-300">
+        <div class="absolute inset-0 bg-primary/70 backdrop-blur-sm modal-backdrop transition-opacity"></div>
+        
+        <div class="relative w-full max-w-[800px] bg-white p-6 md:p-12 product-card-shadow rounded-sm border border-outline-variant/20 transform scale-95 transition-transform duration-300 shadow-2xl">
+            
+            <button id="close-modal" class="absolute top-3 right-3 md:top-6 md:right-6 text-on-surface-variant hover:text-error transition-colors bg-surface-container-low rounded-full p-2 hover:bg-error-container">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+
+            <div class="text-center mb-6 md:mb-10 space-y-3 md:space-y-4 relative z-20">
+                <h2 class="font-display-lg text-2xl md:text-headline-md text-primary mt-4 md:mt-0">Schedule Your Experience</h2>
+                <p class="font-body-md text-on-surface-variant text-xs md:text-base">Complete the form below to book a personalized demo in our showroom or your office.</p>
+            </div>
+            
+            <form class="space-y-5 md:space-y-8 relative z-20 ks-demo-form">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
+                    <div class="relative group">
+                        <input name="fullName" class="peer w-full border-0 border-b border-outline-variant py-2 md:py-3 bg-transparent focus:ring-0 focus:border-secondary transition-colors text-sm" placeholder=" " required="" type="text" />
+                        <label class="absolute left-0 -top-4 text-on-surface-variant font-label-caps text-[10px] transition-all peer-placeholder-shown:text-xs peer-placeholder-shown:top-2 md:peer-placeholder-shown:top-3 peer-focus:-top-4 peer-focus:text-secondary peer-focus:text-[10px]">Full Name</label>
+                    </div>
+                    <div class="relative group">
+                        <input name="companyName" class="peer w-full border-0 border-b border-outline-variant py-2 md:py-3 bg-transparent focus:ring-0 focus:border-secondary transition-colors text-sm" placeholder=" " required="" type="text" />
+                        <label class="absolute left-0 -top-4 text-on-surface-variant font-label-caps text-[10px] transition-all peer-placeholder-shown:text-xs peer-placeholder-shown:top-2 md:peer-placeholder-shown:top-3 peer-focus:-top-4 peer-focus:text-secondary peer-focus:text-[10px]">Company Name</label>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <input name="businessEmail" class="peer w-full border-0 border-b border-outline-variant py-2 md:py-3 bg-transparent focus:ring-0 focus:border-secondary transition-colors text-sm" placeholder=" " required="" type="email" />
+                    <label class="absolute left-0 -top-4 text-on-surface-variant font-label-caps text-[10px] transition-all peer-placeholder-shown:text-xs peer-placeholder-shown:top-2 md:peer-placeholder-shown:top-3 peer-focus:-top-4 peer-focus:text-secondary peer-focus:text-[10px]">Business Email</label>
+                </div>
+                <div class="space-y-2">
+                    <label class="font-label-caps text-[10px] md:text-xs text-on-surface-variant">Machine Interest</label>
+                    <select name="machineInterest" class="w-full border-0 border-b border-outline-variant py-2 md:py-3 bg-transparent focus:ring-0 focus:border-secondary transition-colors appearance-none font-body-md text-xs md:text-sm">
+                        <option>KS 100 - Sleek Enterprise</option>
+                        <option>KS 200 - Robust Office</option>
+                        <option>KS 300 - Luxury Hospitality</option>
+                        <option>Full Comparison Consultation</option>
+                    </select>
+                </div>
+                <button class="w-full bg-primary text-on-primary py-4 md:py-5 font-label-caps text-[10px] md:text-xs uppercase tracking-[0.2em] hover:bg-secondary transition-all shadow-md active:scale-[0.98] rounded-sm mt-4" type="submit">Request Demonstration</button>
+            </form>
+
+            <div class="absolute top-0 left-0 w-24 md:w-32 h-24 md:h-32 bg-secondary/5 rounded-full blur-2xl -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0"></div>
+            <div class="absolute bottom-0 right-0 w-48 md:w-64 h-48 md:h-64 bg-primary/5 rounded-full blur-3xl translate-x-1/3 translate-y-1/3 pointer-events-none z-0"></div>
+        </div>
+    </div>
+
+    <script>
+        // Form Submission Logic using Google Apps Script
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxHxHsBal8vLwu9vtu1UaFWMUeQwr0tzfdftCppaBR6k0rXvg4Htl7qs-r0sx63xGFC/exec';
+        
+        const demoForms = document.querySelectorAll('.ks-demo-form');
+
+        demoForms.forEach(form => {
+            form.addEventListener('submit', e => {
+                e.preventDefault(); 
+
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerText;
+                submitBtn.innerText = 'Sending...';
+                submitBtn.disabled = true;
+
+                const payload = {
+                    fullName: form.fullName.value,
+                    companyName: form.companyName.value,
+                    businessEmail: form.businessEmail.value,
+                    machineInterest: form.machineInterest.value
+                };
+
+                fetch(scriptURL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(payload)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success!', data);
+                    submitBtn.innerText = 'Successfully Sent!';
+                    form.reset(); 
+
+                    setTimeout(() => {
+                        submitBtn.innerText = originalText;
+                        submitBtn.disabled = false;
+                        
+                        if(form.closest('#demo-modal')) {
+                            closeModal();
+                        }
+                    }, 3000);
+                })
+                .catch(error => {
+                    console.error('Error!', error.message);
+                    submitBtn.innerText = 'Error! Try Again';
+                    
+                    setTimeout(() => {
+                        submitBtn.innerText = originalText;
+                        submitBtn.disabled = false;
+                    }, 3000);
+                });
+            });
+        });
+
+        // Smooth scroll for nav links (excluding popup triggers)
+        document.querySelectorAll('a[href^="#"]:not([href="#demo"])').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add scrolled state to Navbar for glassmorphism enhancement
+        const nav = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-md', 'bg-surface/90');
+                nav.classList.remove('bg-surface/75');
+            } else {
+                nav.classList.remove('shadow-md', 'bg-surface/90');
+                nav.classList.add('bg-surface/75');
+            }
+        });
+
+        // Combined Intersection Observer Logic
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.classList.contains('fade-up')) {
+                        entry.target.classList.add('visible');
+                    } else {
+                        entry.target.classList.add('opacity-100', 'translate-y-0');
+                        entry.target.classList.remove('opacity-0', 'translate-y-10');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section > div:not(.grain-overlay)').forEach(el => {
+            if(!el.classList.contains('fade-up')) {
+                el.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-10');
+            }
+            observer.observe(el);
+        });
+
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        // --- Popup Modal Logic ---
+        const modal = document.getElementById('demo-modal');
+        const modalBackdrop = document.querySelector('.modal-backdrop');
+        const closeModalBtn = document.getElementById('close-modal');
+        const modalInner = modal.querySelector('.relative.max-w-\\[800px\\]');
+
+        function openModal() {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.classList.add('modal-open');
+            
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalInner.classList.remove('scale-95');
+                modalInner.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            modal.classList.add('opacity-0');
+            modalInner.classList.remove('scale-100');
+            modalInner.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.classList.remove('modal-open');
+            }, 300); // Matches transition duration
+        }
+
+        // Intercept all links targeting #demo
+        document.querySelectorAll('a[href="#demo"]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                openModal();
+            });
+        });
+
+        // Close events
+        closeModalBtn.addEventListener('click', closeModal);
+        modalBackdrop.addEventListener('click', closeModal);
+
+        // Optional: Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+
+        // "Rendering itself" - Auto pop-up after page load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                openModal();
+            }, 1500); // Pops up 1.5 seconds after load
+        });
+    </script>
+</body>
+</html>
